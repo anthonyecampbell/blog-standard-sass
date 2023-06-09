@@ -10,8 +10,12 @@ export const AppLayout = ({children}) => {
             <div className="flex flex-col text-white overflow-hidden">
                 <div className="bg-slate-800">
                     <div>logo</div>
-                    <div>cta button</div>
-                    <div>tokens</div>
+                    <Link href="/post/new" className="bg-green-500 tracking-wider w-full text-cent font-bold cursor-pointer uppercase px-4 py-2 rounded-md hover:bg-green-600 transition-colors block">
+                        New Post
+                    </Link>
+                    <Link href="/token-topup">
+                        0 tokens available
+                    </Link>
                 </div>
                 <div className="flex-1 overflow-auto bg-gradient-to-b from-slate-800 to-cyan-800">
                     list of posts
