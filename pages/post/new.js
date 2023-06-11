@@ -5,7 +5,7 @@ import { AppLayout } from "../../components/AppLayout";
 import { getAppProps } from "../../utils/getAppProps";
 
 export default function NewPost() {
-    const router = useRouter();
+  const router = useRouter();
   const [topic, setTopic] = useState("");
   const [keywords, setKeywords] = useState("");
 
@@ -19,9 +19,9 @@ export default function NewPost() {
       body: JSON.stringify({ topic, keywords }),
     });
     const json = await response.json();
-    console.log('RESULT', json);
-    if(json?.postId) {
-        router.push(`/post/${json.postId}`);
+    console.log("RESULT", json);
+    if (json?.postId) {
+      router.push(`/post/${json.postId}`);
     }
   };
   return (
@@ -60,11 +60,10 @@ NewPost.getLayout = function getLayout(page, pageProps) {
 };
 
 export const getServerSideProps = withPageAuthRequired({
-    async getServerSideProps(ctx) {
-       const props = await getAppProps(ctx);
-       return {
-           props
-       }
-    }
-   });
-   
+  async getServerSideProps(ctx) {
+    const props = await getAppProps(ctx);
+    return {
+      props,
+    };
+  },
+});
