@@ -8,8 +8,6 @@ export default async function handler(req, res) {
     const openai = new OpenAIApi(config);
 
     const {topic, keywords} = req.body;
-    // const topic = "Top 10 tips for dog owners";
-    // const keywords = "first-time dog owners, common dog health issues, best dog breeds";
 
     const response = await openai.createCompletion({
         model: "text-davinci-003",
@@ -25,6 +23,81 @@ export default async function handler(req, res) {
             "metaDescription": meta description goes here
         }`,
     });
+
+    /* Using the OpenAI gpt-3.5-turbo model
+    const postContentResponse =  await openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        temperature: 0,
+        messages: [
+            {
+                role: 'system',
+                content: 'you are a blog post generator'
+            },
+            {
+                role: 'user',
+                content: `Write a long and detailed SEO-friendly blog post about ${topic}, that targets the following comma-separated keywords: ${keywords}.
+                The content should be formatted in SEO-friendly HTML,
+                limited to the following HTML tags: p, h1, h2, h3, h4, h5, h6, strong, li, ol, ul, i`
+            }
+        ]
+    });
+
+    const postContent = postContentResponse.data.choices[0]?message?.content || '';
+
+    const titleResponse =  await openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        temperature: 0,
+        messages: [
+            {
+                role: 'system',
+                content: 'you are a blog post generator'
+            },
+            {
+                role: 'user',
+                content: `Write a long and detailed SEO-friendly blog post about ${topic}, that targets the following comma-separated keywords: ${keywords}.
+                The content should be formatted in SEO-friendly HTML,
+                limited to the following HTML tags: p, h1, h2, h3, h4, h5, h6, strong, li, ol, ul, i`
+            },
+            {
+                role: 'assistant',
+                content: postContent
+            },
+            {
+                role: 'user',
+                content: 'Generate approriate title tag text for the above blog post'
+            }
+        ]
+    });
+
+    const metaDescriptionResponse =  await openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        temperature: 0,
+        messages: [
+            {
+                role: 'system',
+                content: 'you are a blog post generator'
+            },
+            {
+                role: 'user',
+                content: `Write a long and detailed SEO-friendly blog post about ${topic}, that targets the following comma-separated keywords: ${keywords}.
+                The content should be formatted in SEO-friendly HTML,
+                limited to the following HTML tags: p, h1, h2, h3, h4, h5, h6, strong, li, ol, ul, i`
+            },
+            {
+                role: 'assistant',
+                content: postContent
+            },
+            {
+                role: 'user',
+                content: 'Generate approriate SEO-friendly meta description content for the above blog post'
+            }
+        ]
+    });
+
+    const title = titleResponse.data.choices[0]?message?.content || '';
+
+    const metaDescription = metaDescriptionResponse.data.choices[0]?message?.content || '';
+    */
 
     console.log('response', response);
 
