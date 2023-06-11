@@ -141,6 +141,6 @@ export default withApiAuthRequired(async function handler(req, res) {
   });
 
   res.status(200).json({
-    post: JSON.parse(response.data.choices[0]?.text.split("\n").join("")),
+    postId: post.insertedId,
   });
 });

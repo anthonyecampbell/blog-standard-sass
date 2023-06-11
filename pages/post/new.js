@@ -1,11 +1,14 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { AppLayout } from "../../components/AppLayout";
+import { getAppProps } from "../../utils/getAppProps";
 
 export default function NewPost() {
+    const router = useRouter();
   const [topic, setTopic] = useState("");
   const [keywords, setKeywords] = useState("");
-  const [postContent, setPostContent] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("/api/generatePost", {
@@ -16,8 +19,10 @@ export default function NewPost() {
       body: JSON.stringify({ topic, keywords }),
     });
     const json = await response.json();
-    console.log(json.post.postContent);
-    setPostContent(json.post.postContent);
+    console.log('RESULT', json);
+    if(json?.postId) {
+        router.push(`/post/${json.postId}`);
+    }
   };
   return (
     <div>
@@ -46,10 +51,6 @@ export default function NewPost() {
           Generate
         </button>
       </form>
-      <div
-        className="max-w-screen-sm p-10"
-        dangerouslySetInnerHTML={{ __html: postContent }}
-      ></div>
     </div>
   );
 }
@@ -58,8 +59,12 @@ NewPost.getLayout = function getLayout(page, pageProps) {
   return <AppLayout {...pageProps}>{page}</AppLayout>;
 };
 
-export const getServerSideProps = withPageAuthRequired(() => {
-  return {
-    props: {},
-  };
-});
+export const getServerSideProps = withPageAuthRequired({
+    async getServerSideProps(ctx) {
+       const props = await getAppProps(ctx);
+       return {
+           props
+       }
+    }
+   });
+   
