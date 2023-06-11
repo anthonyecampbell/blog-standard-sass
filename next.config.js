@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['s.gravatar.com'],
-  }
-}
+    domains: ["s.gravatar.com"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
