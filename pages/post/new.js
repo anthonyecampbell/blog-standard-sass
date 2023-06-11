@@ -1,4 +1,6 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { faBrain } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { AppLayout } from "../../components/AppLayout";
@@ -8,9 +10,12 @@ export default function NewPost() {
   const router = useRouter();
   const [topic, setTopic] = useState("");
   const [keywords, setKeywords] = useState("");
+  const [generating, setGenerating] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setGenerating(true);
+    try {
     const response = await fetch("/api/generatePost", {
       method: "POST",
       headers: {
@@ -23,10 +28,23 @@ export default function NewPost() {
     if (json?.postId) {
       router.push(`/post/${json.postId}`);
     }
-  };
+
+} catch (e) {
+  setGenerating(false);
+}
+};
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="h-full overflow-hidden">
+
+      {generating && (
+      <div className="text-green-500 flex h-full animate-pulse w-full flex-col justify-center items-center">
+        <FontAwesomeIcon icon={faBrain} className="text-8xl" />
+        <h6>Generating...</h6>
+      </div>
+      )}
+      {!generating && (
+      <div className="w-full h-full flex flex-col overflow-auto">
+      <form onSubmit={handleSubmit} className="m-auto w-full max-w-screen-sm bg-slate-100 p-4 rounded-md shadow-xl border border-slate-200 shadow-slate-200">
         <div>
           <label>
             <strong>Generate a blog post on the topic of:</strong>
@@ -46,11 +64,16 @@ export default function NewPost() {
             value={keywords}
             onChange={(e) => setKeywords(e.target.value)}
           />
+          <small className="block mb-2">
+            Searate keywords with commas
+          </small>
         </div>
         <button type="submit" className="btn">
           Generate
         </button>
       </form>
+      </div>
+      )}
     </div>
   );
 }
