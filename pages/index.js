@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import { Logo } from '../components/Logo';
-import HeroImage from '../public/hero.webp';
-import Link from 'next/link';
+import Image from "next/image";
+import { Logo } from "../components/Logo";
+import HeroImage from "../public/hero.webp";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,7 +10,8 @@ export default function Home() {
       <div className="relative z-10 text-white px-10 py-5 text-center max-w-screen-sm bg-slate-900/90 rounded-md backdrop-blur-sm">
         <Logo />
         <p>
-          The AI-powered SAAS solution to generate SEO-optimized blog posts in minutes. Get high-quality content, without sacrificing your time.
+          The AI-powered SAAS solution to generate SEO-optimized blog posts in
+          minutes. Get high-quality content, without sacrificing your time.
         </p>
         <Link href="/post/new" className="btn">
           Begin
