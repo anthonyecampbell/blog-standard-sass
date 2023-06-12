@@ -1,7 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Logo } from "../components/Logo";
 import HeroImage from "../public/hero.webp";
-import Link from "next/link";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
           The AI-powered SAAS solution to generate SEO-optimized blog posts in
           minutes. Get high-quality content, without sacrificing your time.
         </p>
-        <Link href="/post/new" className="btn">
+        <Link href="/post/new" className="btn text-left">
           Begin
         </Link>
       </div>
