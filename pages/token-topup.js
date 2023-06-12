@@ -13,18 +13,24 @@ export default function TokenTopup() {
   };
   return (
     <div>
-          <div className="overflow-auto h-full">
-      <div className="max-w-screen-sm mx-auto">
-        <div className="p-4 my-2 border border-stone-200 rounded-md">
-          <div className="text-blue-600 text-2xl font-bold">Add tokens to your account</div>
-          <div className="mt-2"><p>By pressing the "Add Tokens" button below you agree to thge terms and conditions of BlogStandard.</p></div>
-          <button className="btn" onClick={handleClick}>
-        Add tokens
-      </button>
+      <div className="overflow-auto h-full">
+        <div className="max-w-screen-sm mx-auto">
+          <div className="p-4 my-2 border border-stone-200 rounded-md">
+            <div className="text-blue-600 text-2xl font-bold">
+              Add tokens to your account
+            </div>
+            <div className="mt-2">
+              <p>
+                By pressing the "Add Tokens" button below you agree to thge
+                terms and conditions of BlogStandard.
+              </p>
+            </div>
+            <button className="btn" onClick={handleClick}>
+              Add tokens
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-     
     </div>
   );
 }
